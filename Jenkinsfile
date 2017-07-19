@@ -10,8 +10,12 @@ node {
     sh "docker run kpc"
   }
   stage('Push project image'){
+    def version = input(id: 'version', message: 'Please input version tag', parameters: [
+    [$class: 'TextParameterDefinition', defaultValue: "${env.BUILD_NUMBER}", \
+      description: 'Versioning input', name: 'version']
+    ])
     docker.withRegistry('https://172.17.0.2:5000') {
-        app.push("${env.BUILD_NUMBER}")
+        app.push(version)
         app.push("latest")
     }
   }
