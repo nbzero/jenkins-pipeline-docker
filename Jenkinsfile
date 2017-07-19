@@ -14,7 +14,7 @@ node {
     [$class: 'TextParameterDefinition', defaultValue: "${env.BUILD_NUMBER}", \
       description: 'Versioning input', name: 'version']
     ])
-    echo "Deploying with ${env.version}"
+    echo "Deploying with " + version
     docker.withRegistry('https://172.17.0.2:5000') {
         app.push(version)
         app.push("latest")
