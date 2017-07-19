@@ -1,8 +1,8 @@
 node {
   def app
   stage('clone repo'){
-    // checkout scm
-    echo "checkout scm"
+    checkout scm
+    // echo "checkout scm"
   }
   stage('Build docker image'){
     app = docker.build("172.17.0.3:5000/kpc")
