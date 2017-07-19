@@ -11,9 +11,9 @@ node {
     echo "test image"
   }
   stage('Push image'){
-    docker.withRegistry('http://172.17.0.3:5000') {
-        app.push("${env.BUILD_NUMBER}")
-        app.push("latest")
+    docker.withRegistry('https://172.17.0.3:5000') {
+        app.push("kpc:${env.BUILD_NUMBER}")
+        app.push("kpc:latest")
     }
   }
 }
