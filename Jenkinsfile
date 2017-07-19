@@ -1,19 +1,22 @@
 node {
   def app
-  stage('clone repo'){
+  stage('Checkout project repository'){
     checkout scm
     // echo "checkout scm"
   }
-  stage('Build docker image'){
-    app = docker.build("172.17.0.3:5000/kpc")
+  stage('Build project docker image'){
+    app = docker.build("kpc")
   }
-  stage('Test image'){
-    echo "test image"
+  stage('Test project image'){
+    sh "docker run kpc"
   }
-  stage('Push image'){
+  stage('Push project image'){
     docker.withRegistry('https://172.17.0.3:5000') {
         app.push("${env.BUILD_NUMBER}")
         app.push("latest")
     }
+  }
+  stage('Deploy on staging environment') {
+    echo "Deploy with helm"
   }
 }
