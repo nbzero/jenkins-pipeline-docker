@@ -14,13 +14,26 @@ node {
     [$class: 'TextParameterDefinition', defaultValue: "${env.BUILD_NUMBER}", \
       description: 'Versioning input', name: 'version']
     ])
-    echo "Deploying with " + version
+    echo "Deploying with tag: " + version
     docker.withRegistry('https://172.17.0.2:5000') {
         app.push(version)
         app.push("latest")
     }
   }
-  stage('Deploy on staging environment') {
-    echo "Deploy with helm"
+  stage('Deploy on Staging environment') {
+    echo "Deploying Staging with helm"
+    // ...
+    echo "Deployed"
+  }
+  stage('Deploy on UAT environment') {
+    echo "Deploying UAT with helm"
+    // ...
+    echo "Deployed"
+  }
+  stage('Deploy on Production environment') {
+    input "Ready for production?"
+    echo "Deploying Production with helm"
+    // ...
+    echo "Deployed"
   }
 }
